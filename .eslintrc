@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "build/",
+    "node_modules/"
+  ],
+  "rules": {
+    //off or 0: turn off the rule completely
+    //warn or 1: treat the rule as a warning, but it won’t fail when running a linter
+    //error or 2: treat the rule as an error. It will fail when running a linter
+    "no-console": 1,
+    // All prettier rules will be flagged as errors (2)
+    "prettier/prettier": 2,
+    // Don't allow any type
+    "@typescript-eslint/no-explicit-any": 2
+  }
+}
+
