@@ -1,5 +1,6 @@
 import express from 'express';
-import * as clientsServices from '../services/clients.service';
+import * as clientService from '../services/client.service';
+import { clientSchema } from '../schemas/clientSchema';
 
 const router = express.Router();
 
@@ -8,9 +9,8 @@ const router = express.Router();
  */
 router.get('/', async (_req, res) => {
   try {
-    const clients = await clientsServices.getClients();
+    const clients = await clientService.getClients();
     res.send(clients).status(200);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).send(error.message);
   }
@@ -20,10 +20,14 @@ router.get('/', async (_req, res) => {
  * POST /api/clients/ - Add a new client
  */
 router.post('/', async (req, res) => {
+  const isSchemaValid = clientSchema.validate(req.body);
+  if (isSchemaValid.error) {
+    res.status(400).send(isSchemaValid.error.message);
+    return;
+  }
   try {
-    const result = await clientsServices.addClient(req.body);
+    const result = await clientService.addClient(req.body);
     res.send(result).status(201);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).send(error.message);
   }
@@ -33,10 +37,18 @@ router.post('/', async (req, res) => {
  * PUT /api/clients/:id - Update a client
  */
 router.put('/:id', async (req, res) => {
+  if (!req.params.id) {
+    res.status(400).send('Id is required');
+    return;
+  }
+  const isSchemaValid = clientSchema.validate(req.body);
+  if (isSchemaValid.error) {
+    res.status(400).send(isSchemaValid.error.message);
+    return;
+  }
   try {
-    const result = await clientsServices.updateClient(req.params.id, req.body);
+    const result = await clientService.updateClient(req.params.id, req.body);
     res.send(result).status(201);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).send(error.message);
   }
@@ -46,10 +58,13 @@ router.put('/:id', async (req, res) => {
  * DELETE /api/clients/:id - Delete a client
  */
 router.delete('/:id', async (req, res) => {
+  if (!req.params.id) {
+    res.status(400).send('Id is required');
+    return;
+  }
   try {
-    await clientsServices.deleteClient(req.params.id);
+    await clientService.deleteClient(req.params.id);
     res.sendStatus(204);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).send(error.message);
   }

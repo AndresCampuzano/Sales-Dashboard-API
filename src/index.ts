@@ -1,5 +1,5 @@
 import express from 'express';
-import clientsRouter from './routes/clients';
+import clientsRouter from './routes/client';
 import { connectToDatabase } from './mongo/database';
 import dotenv from 'dotenv';
 
