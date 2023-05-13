@@ -1,5 +1,6 @@
 import express from 'express';
 import clientsRouter from './routes/client';
+import itemsRouter from './routes/item';
 import { connectToDatabase } from './mongo/database';
 import dotenv from 'dotenv';
 
@@ -14,6 +15,7 @@ connectToDatabase()
   .then(() => {
     const PORT = process.env.PORT || 3000;
     app.use('/api/clients', clientsRouter);
+    app.use('/api/items', itemsRouter);
     app.listen(PORT, () => {
       console.log(`🤖 Server is running on port: http://localhost:${PORT}`);
     });
