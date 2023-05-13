@@ -10,3 +10,16 @@ export interface Client {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface Item {
+  _id?: string;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  category: string;
+  currency: string;
+  available_colors: string[];
+  created_at?: string;
+  updated_at?: string;
+}

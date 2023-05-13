@@ -6,7 +6,19 @@ import { Client } from '../types';
  * Return all clients
  */
 export const getClients = async () => {
-  return await collections.dashboardCollection?.find({}).toArray();
+  return await collections.clientCollection?.find({}).toArray();
+};
+
+/**
+ * Return a single client
+ */
+export const getClient = async (id: string) => {
+  const query = { _id: new ObjectId(id) };
+  const client = await collections.clientCollection?.findOne(query);
+  if (!client) {
+    throw new Error('Client not found');
+  }
+  return client;
 };
 
 /**
@@ -16,7 +28,7 @@ export const addClient = async (body: Client) => {
   const date = new Date().toISOString();
 
   try {
-    return await collections.dashboardCollection?.insertOne({
+    return await collections.clientCollection?.insertOne({
       ...(body as Omit<Client, '_id'>),
       created_at: date
     });
@@ -33,7 +45,8 @@ export const updateClient = async (id: string, body: Client) => {
   const date = new Date().toISOString();
 
   try {
-    return await collections.dashboardCollection?.updateOne(query, {
+    await getClient(id);
+    return await collections.clientCollection?.updateOne(query, {
       $set: {
         ...body,
         updated_at: date
@@ -51,7 +64,8 @@ export const deleteClient = async (id: string) => {
   const query = { _id: new ObjectId(id) };
 
   try {
-    return await collections.dashboardCollection?.deleteOne(query);
+    await getClient(id);
+    return await collections.clientCollection?.deleteOne(query);
   } catch (error) {
     throw new Error('Could not delete client ' + error);
   }

@@ -1,6 +1,6 @@
-const Joi = require('joi');
+import Joi from 'joi';
 
-export const clientSchema = Joi.object({
+export const ClientSchema = Joi.object({
   // id: Joi.string(),
   name: Joi.string().required(),
   instagram_account: Joi.string().required(),

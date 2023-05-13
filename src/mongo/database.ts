@@ -13,7 +13,6 @@ export async function connectToDatabase() {
 
   const db: mongoDB.Db = client.db(process.env.DB_NAME);
 
-  collections.dashboardCollection = db.collection(
-    process.env.DB_COLLECTION || ''
-  );
+  collections.clientCollection = db.collection('client_collection');
+  collections.itemCollection = db.collection('item_collection');
 }

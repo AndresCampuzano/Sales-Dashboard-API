@@ -1,6 +1,7 @@
 import express from 'express';
-import * as clientService from '../services/client.service';
-import { clientSchema } from '../schemas/clientSchema';
+import * as ClientService from '../services/client.service';
+import { isSchemaValid } from '../utils/isSchemaValid';
+import { ClientSchema } from '../schemas/client.schema';
 
 const router = express.Router();
 
@@ -9,8 +10,20 @@ const router = express.Router();
  */
 router.get('/', async (_req, res) => {
   try {
-    const clients = await clientService.getClients();
+    const clients = await ClientService.getClients();
     res.send(clients).status(200);
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+});
+
+/**
+ * GET /api/clients/:id - Returns a single client
+ */
+router.get('/:id', async (req, res) => {
+  try {
+    const client = await ClientService.getClient(req.params.id);
+    res.send(client).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }
@@ -20,13 +33,13 @@ router.get('/', async (_req, res) => {
  * POST /api/clients/ - Add a new client
  */
 router.post('/', async (req, res) => {
-  const isSchemaValid = clientSchema.validate(req.body);
-  if (isSchemaValid.error) {
-    res.status(400).send(isSchemaValid.error.message);
-    return;
-  }
   try {
-    const result = await clientService.addClient(req.body);
+    const { error } = isSchemaValid(ClientSchema, req.body);
+    if (error) {
+      res.status(400).send(error.message);
+      return;
+    }
+    const result = await ClientService.addClient(req.body);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -41,13 +54,13 @@ router.put('/:id', async (req, res) => {
     res.status(400).send('Id is required');
     return;
   }
-  const isSchemaValid = clientSchema.validate(req.body);
-  if (isSchemaValid.error) {
-    res.status(400).send(isSchemaValid.error.message);
+  const { error } = isSchemaValid(ClientSchema, req.body);
+  if (error) {
+    res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await clientService.updateClient(req.params.id, req.body);
+    const result = await ClientService.updateClient(req.params.id, req.body);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -63,8 +76,8 @@ router.delete('/:id', async (req, res) => {
     return;
   }
   try {
-    await clientService.deleteClient(req.params.id);
-    res.sendStatus(204);
+    await ClientService.deleteClient(req.params.id);
+    res.send('Client deleted').status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }
