@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { Item } from '../types';
 import { collections } from '../mongo/collections';
+import { uploadImage } from '../aws/uploadImage';
 
 /**
  * Return all items
@@ -24,14 +25,23 @@ export const getItem = async (id: string) => {
 /**
  * Post a new item
  */
-export const addItem = async (body: Item) => {
+export const addItem = async (
+  body: Item,
+  file: Express.Multer.File | undefined
+) => {
   const date = new Date().toISOString();
 
   try {
-    return await collections.itemCollection?.insertOne({
-      ...(body as Omit<Item, '_id'>),
-      created_at: date
-    });
+    if (!file) {
+      throw new Error('Image is required');
+    } else {
+      const imageUrl = await uploadImage(file);
+      return await collections.itemCollection?.insertOne({
+        ...(body as Omit<Item, '_id'>),
+        image: imageUrl,
+        created_at: date
+      });
+    }
   } catch (error) {
     throw new Error('Could not add item ' + error);
   }

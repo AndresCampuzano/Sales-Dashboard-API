@@ -2,6 +2,7 @@ import express from 'express';
 import * as ItemService from '../services/item.service';
 import { isSchemaValid } from '../utils/isSchemaValid';
 import { ItemSchema } from '../schemas/item.schema';
+import { multerUpload } from '../multer/multer';
 
 const router = express.Router();
 
@@ -31,15 +32,18 @@ router.get('/:id', async (req, res) => {
 
 /**
  * POST /api/items/ - Add a new item
+ * multerUpload.single('image') - middleware to upload a single file
+ * req.file - contains the uploaded file
+ * req.body - contains the text fields
  */
-router.post('/', async (req, res) => {
+router.post('/', multerUpload.single('image'), async (req, res) => {
   const { error } = isSchemaValid(ItemSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ItemService.addItem(req.body);
+    const result = await ItemService.addItem(req.body, req.file);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
