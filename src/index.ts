@@ -4,6 +4,7 @@ import itemsRouter from './routes/item';
 import saleRouter from './routes/sale';
 import { connectToDatabase } from './mongo/database';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 connectToDatabase()
   .then(() => {
     const PORT = process.env.PORT || 3000;
+    app.use(cors());
     app.use('/api/clients', clientsRouter);
     app.use('/api/items', itemsRouter);
     app.use('/api/sales', saleRouter);
