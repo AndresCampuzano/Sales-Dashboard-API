@@ -5,7 +5,7 @@ export const ItemSchema = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().required(),
   description: Joi.string(),
-  image: Joi.string().optional(), // image - This is validated in the multer middleware
+  image: Joi.string().required(),
   category: Joi.string().required(),
   currency: Joi.string().required(),
   available_colors: Joi.array().items(Joi.string())

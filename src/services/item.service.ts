@@ -25,23 +25,16 @@ export const getItem = async (id: string) => {
 /**
  * Post a new item
  */
-export const addItem = async (
-  body: Item,
-  file: Express.Multer.File | undefined
-) => {
+export const addItem = async (body: Item) => {
   const date = new Date().toISOString();
 
   try {
-    if (!file) {
-      throw new Error('Image is required');
-    } else {
-      const imageUrl = await uploadImage(file);
-      return await collections.itemCollection?.insertOne({
-        ...(body as Omit<Item, '_id'>),
-        image: imageUrl,
-        created_at: date
-      });
-    }
+    const imageUrl = await uploadImage(body.image);
+    return await collections.itemCollection?.insertOne({
+      ...(body as Omit<Item, '_id'>),
+      image: imageUrl,
+      created_at: date
+    });
   } catch (error) {
     throw new Error('Could not add item ' + error);
   }
