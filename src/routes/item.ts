@@ -31,7 +31,6 @@ router.get('/:id', async (req, res) => {
 
 /**
  * POST /api/items/ - Add a new item
- * multerUpload.single('image') - middleware to upload a single file
  */
 router.post('/', async (req, res) => {
   const { error } = isSchemaValid(ItemSchema, req.body);

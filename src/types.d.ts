@@ -8,7 +8,6 @@ export interface Client {
   city: string;
   phone: number;
   country: string;
-  email: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -31,7 +30,6 @@ export interface Sale {
   client_id: ObjectId | string;
   items: {
     item_id: ObjectId | string;
-    quantity: number;
     color: string;
   }[];
   created_at?: string;
@@ -46,7 +44,6 @@ export interface SaleWithClientAndItemData {
   };
   items: {
     item_id: string;
-    quantity: number;
     color: string;
   };
   original_items: Item[] & {

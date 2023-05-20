@@ -24,7 +24,7 @@ export const getSale = async (id: string) => {
 
 /**
  * Return all sales with client and items data
- * while keeping the quantity and color inside the item object
+ * while keeping the color inside the item object
  */
 export const getSalesWithClientAndItemData = async () => {
   return collections.saleCollection
@@ -71,7 +71,9 @@ export const addSale = async (body: Sale) => {
       .toArray();
 
     // Validate that all items exist
-    if (items?.length !== itemsIds.length) {
+    if (
+      !itemsIds.every((id) => items?.some((item) => item._id.toString() === id))
+    ) {
       throw new Error('One or more items do not exist');
     }
 
