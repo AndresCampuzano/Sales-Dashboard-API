@@ -7,7 +7,6 @@ export interface Client {
   address: string;
   city: string;
   phone: number;
-  country: string;
   created_at?: string;
   updated_at?: string;
 }
