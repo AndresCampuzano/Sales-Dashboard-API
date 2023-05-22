@@ -14,10 +14,10 @@ export async function connectToDatabase() {
 
   if (process.env.NODE_ENV !== 'production') {
     console.log('🚀 Connecting to local database');
-    db = client.db(process.env.DB_NAME);
+    db = client.db(process.env.DB_NAME_LOCAL);
   } else {
     console.log('🚀 Connecting to PRODUCTION database');
-    db = client.db(process.env.DB_NAME);
+    db = client.db(process.env.DB_NAME_PROD);
   }
 
   collections.clientCollection = db.collection('client_collection');
