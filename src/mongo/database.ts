@@ -5,6 +5,12 @@ import { collections } from './collections';
  * Connects to the mongo and sets the collections object
  */
 export async function connectToDatabase() {
+  // Check current environment
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('🚀 Connecting to local database');
+  } else {
+    console.log('🚀 Connecting to Atlas database');
+  }
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(
     process.env.ATLAS_URI as string
   );
