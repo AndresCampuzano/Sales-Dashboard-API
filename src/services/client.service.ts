@@ -25,7 +25,7 @@ export const getClient = async (id: string) => {
  * Post a new client
  */
 export const addClient = async (body: Client) => {
-  const date = new Date().toISOString();
+  const date = new Date();
 
   try {
     return await collections.clientCollection?.insertOne({
@@ -42,7 +42,7 @@ export const addClient = async (body: Client) => {
  */
 export const updateClient = async (id: string, body: Client) => {
   const query = { _id: new ObjectId(id) };
-  const date = new Date().toISOString();
+  const date = new Date();
 
   try {
     await getClient(id);

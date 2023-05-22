@@ -56,7 +56,7 @@ export const getSalesWithClientAndItemData = async () => {
  * Post a new sale
  */
 export const addSale = async (body: Sale) => {
-  const date = new Date().toISOString();
+  const date = new Date();
 
   try {
     // Validate that client exists
@@ -100,7 +100,7 @@ export const addSale = async (body: Sale) => {
  */
 // export const updateSale = async (id: string, body: Sale) => {
 //   const query = { _id: new ObjectId(id) };
-//   const date = new Date().toISOString();
+//   const date = new Date();
 //
 //   try {
 //     await getSale(id);

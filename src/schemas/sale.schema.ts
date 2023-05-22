@@ -7,7 +7,8 @@ export const SaleSchema = Joi.object({
     .items(
       Joi.object({
         item_id: Joi.string().required(),
-        color: Joi.string().required()
+        color: Joi.string().required(),
+        price: Joi.number().required()
       })
     )
     .required()

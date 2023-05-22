@@ -26,7 +26,7 @@ export const getItem = async (id: string) => {
  * Post a new item
  */
 export const addItem = async (body: Item) => {
-  const date = new Date().toISOString();
+  const date = new Date();
 
   try {
     const imageUrl = await uploadImage(body.image);
@@ -45,7 +45,7 @@ export const addItem = async (body: Item) => {
  */
 export const updateItem = async (id: string, body: Item) => {
   const query = { _id: new ObjectId(id) };
-  const date = new Date().toISOString();
+  const date = new Date();
 
   try {
     await getItem(id);

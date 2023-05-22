@@ -25,14 +25,17 @@ export interface Item {
 }
 
 export interface Sale {
-  _id?: string;
+  _id: string;
   client_id: ObjectId | string;
+  client: Client;
   items: {
     item_id: ObjectId | string;
     color: string;
+    price: number;
   }[];
-  created_at?: string;
-  updated_at?: string;
+  original_items: Item[];
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface SaleWithClientAndItemData {
