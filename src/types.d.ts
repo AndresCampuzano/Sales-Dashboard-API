@@ -5,6 +5,7 @@ export interface Client {
   name: string;
   instagram_account: string;
   address: string;
+  department: string;
   city: string;
   phone: number;
   created_at?: string;

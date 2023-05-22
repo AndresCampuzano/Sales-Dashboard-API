@@ -5,6 +5,7 @@ export const ClientSchema = Joi.object({
   name: Joi.string().required(),
   instagram_account: Joi.string().required(),
   address: Joi.string().required(),
+  department: Joi.string().required(),
   city: Joi.string().required(),
   phone: Joi.number().required()
   // created_at: Joi.string(),
