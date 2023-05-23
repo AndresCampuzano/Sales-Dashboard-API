@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { Item } from '../types';
 import { collections } from '../mongo/collections';
-import { uploadImage } from '../aws/uploadImage';
+import { deleteImage, uploadImage } from '../aws/imageHandler';
 
 /**
  * Return all items
@@ -48,7 +48,27 @@ export const updateItem = async (id: string, body: Item) => {
   const date = new Date();
 
   try {
-    await getItem(id);
+    const item = await getItem(id);
+    // Check if the image has changed
+    if (item.image !== body.image) {
+      // Check if item.image is not base64
+      if (!item.image.includes('data:image')) {
+        // Getting the image id from the url
+        const imageId = item.image.split('/').pop();
+        // Delete the old image
+        await deleteImage(imageId);
+      }
+      // Upload the new image
+      const imageUrl = await uploadImage(body.image);
+
+      return await collections.itemCollection?.updateOne(query, {
+        $set: {
+          ...body,
+          image: imageUrl,
+          updated_at: date
+        }
+      });
+    }
     return await collections.itemCollection?.updateOne(query, {
       $set: {
         ...body,
