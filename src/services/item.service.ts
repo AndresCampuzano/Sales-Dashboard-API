@@ -87,7 +87,9 @@ export const deleteItem = async (id: string) => {
   const query = { _id: new ObjectId(id) };
 
   try {
-    await getItem(id);
+    const item = await getItem(id);
+    const imageId = item.image.split('/').pop();
+    await deleteImage(imageId)
     return await collections.itemCollection?.deleteOne(query);
   } catch (error) {
     throw new Error('Could not delete item ' + error);
