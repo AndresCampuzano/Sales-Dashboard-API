@@ -16,10 +16,8 @@ export interface Item {
   _id?: string;
   name: string;
   price: number;
-  description: string;
   image: string;
   category: string;
-  currency: string;
   available_colors: string[];
   created_at?: string;
   updated_at?: string;
@@ -42,14 +40,13 @@ export interface Sale {
 export interface SaleWithClientAndItemData {
   _id: string;
   client_id: string;
-  client: Client & {
-    created_at: string;
-  };
+  client: Client;
   items: {
     item_id: string;
     color: string;
-  };
-  original_items: Item[] & {
-    created_at: string;
-  };
+    price: number;
+  }[];
+  original_items: Item[];
+  created_at: string;
+  updated_at?: string;
 }
