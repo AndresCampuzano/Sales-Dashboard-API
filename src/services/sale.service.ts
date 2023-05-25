@@ -29,6 +29,7 @@ export const getSale = async (id: string) => {
 export const getSalesWithClientAndItemData = async () => {
   return collections.saleCollection
     ?.aggregate([
+      // on client_collection lookup for the client
       {
         $lookup: {
           from: 'client_collection',
@@ -37,15 +38,26 @@ export const getSalesWithClientAndItemData = async () => {
           as: 'client'
         }
       },
+      // unwind the client array: [{...}] -> {...}
       {
         $unwind: '$client'
       },
+      // on item_collection lookup for the items
       {
         $lookup: {
           from: 'item_collection',
           localField: 'items.item_id',
           foreignField: '_id',
           as: 'original_items'
+        }
+      },
+      // on this collection (sales) lookup for all sales with the same client
+      {
+        $lookup: {
+          from: 'sale_collection',
+          localField: 'client_id',
+          foreignField: 'client_id',
+          as: 'total_sales'
         }
       }
     ])
