@@ -23,7 +23,7 @@ export interface ItemInterface {
   updated_at?: string;
 }
 
-export interface Sale {
+export interface SaleInterface {
   _id: string;
   client_id: ObjectId | string;
   client: ClientInterface;

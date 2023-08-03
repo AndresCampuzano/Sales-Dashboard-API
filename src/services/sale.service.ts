@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Sale } from '../types';
+import { SaleInterface } from '../types';
 import { collections } from '../mongo/collections';
 import { getClient } from './client.service';
 
@@ -67,7 +67,7 @@ export const getSalesWithClientAndItemData = async () => {
 /**
  * Post a new sale
  */
-export const addSale = async (body: Sale) => {
+export const addSale = async (body: SaleInterface) => {
   const date = new Date();
 
   try {
@@ -98,7 +98,7 @@ export const addSale = async (body: Sale) => {
 
     // Save sale object
     return await collections.saleCollection?.insertOne({
-      ...(body as Omit<Sale, '_id'>),
+      ...(body as Omit<SaleInterface, '_id'>),
       created_at: date
     });
   } catch (error) {
