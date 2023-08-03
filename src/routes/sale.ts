@@ -2,7 +2,7 @@ import express from 'express';
 import * as SaleService from '../services/sale.service';
 import { isSchemaValid } from '../utils/isSchemaValid';
 import { SaleSchema } from '../schemas/sale.schema';
-import { SaleWithClientAndItemData } from '../types';
+import { SaleWithClientAndItemDataInterface } from '../types';
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/', async (_req, res) => {
   try {
     const sales = await SaleService.getSalesWithClientAndItemData();
-    res.send(sales as SaleWithClientAndItemData[]).status(200);
+    res.send(sales as SaleWithClientAndItemDataInterface[]).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }

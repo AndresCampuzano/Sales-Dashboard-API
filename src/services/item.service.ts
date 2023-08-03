@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Item } from '../types';
+import { ItemInterface } from '../types';
 import { collections } from '../mongo/collections';
 import { deleteImage, uploadImage } from '../aws/imageHandler';
 
@@ -25,13 +25,13 @@ export const getItem = async (id: string) => {
 /**
  * Post a new item
  */
-export const addItem = async (body: Item) => {
+export const addItem = async (body: ItemInterface) => {
   const date = new Date();
 
   try {
     const imageUrl = await uploadImage(body.image);
     return await collections.itemCollection?.insertOne({
-      ...(body as Omit<Item, '_id'>),
+      ...(body as Omit<ItemInterface, '_id'>),
       image: imageUrl,
       created_at: date
     });
@@ -43,7 +43,7 @@ export const addItem = async (body: Item) => {
 /**
  * Update a item
  */
-export const updateItem = async (id: string, body: Item) => {
+export const updateItem = async (id: string, body: ItemInterface) => {
   const query = { _id: new ObjectId(id) };
   const date = new Date();
 
@@ -89,7 +89,7 @@ export const deleteItem = async (id: string) => {
   try {
     const item = await getItem(id);
     const imageId = item.image.split('/').pop();
-    await deleteImage(imageId)
+    await deleteImage(imageId);
     return await collections.itemCollection?.deleteOne(query);
   } catch (error) {
     throw new Error('Could not delete item ' + error);

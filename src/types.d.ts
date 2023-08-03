@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
-export interface Client {
-  _id?: string;
+export interface ClientInterface {
+  _id: string;
   name: string;
   instagram_account: string;
   address: string;
@@ -12,8 +12,8 @@ export interface Client {
   updated_at?: string;
 }
 
-export interface Item {
-  _id?: string;
+export interface ItemInterface {
+  _id: string;
   name: string;
   price: number;
   image: string;
@@ -26,27 +26,27 @@ export interface Item {
 export interface Sale {
   _id: string;
   client_id: ObjectId | string;
-  client: Client;
+  client: ClientInterface;
   items: {
     item_id: ObjectId | string;
     color: string;
     price: number;
   }[];
-  original_items: Item[];
+  original_items: ItemInterface[];
   created_at?: Date;
   updated_at?: Date;
 }
 
-export interface SaleWithClientAndItemData {
+export interface SaleWithClientAndItemDataInterface {
   _id: string;
   client_id: string;
-  client: Client;
+  client: ClientInterface;
   items: {
     item_id: string;
     color: string;
     price: number;
   }[];
-  original_items: Item[];
+  original_items: ItemInterface[];
   created_at: string;
   updated_at?: string;
 }

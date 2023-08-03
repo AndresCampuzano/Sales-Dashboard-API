@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { collections } from '../mongo/collections';
-import { Client } from '../types';
+import { ClientInterface } from '../types';
 
 /**
  * Return all clients
@@ -24,12 +24,12 @@ export const getClient = async (id: string) => {
 /**
  * Post a new client
  */
-export const addClient = async (body: Client) => {
+export const addClient = async (body: ClientInterface) => {
   const date = new Date();
 
   try {
     return await collections.clientCollection?.insertOne({
-      ...(body as Omit<Client, '_id'>),
+      ...(body as Omit<ClientInterface, '_id'>),
       created_at: date
     });
   } catch (error) {
@@ -40,7 +40,7 @@ export const addClient = async (body: Client) => {
 /**
  * Update a client
  */
-export const updateClient = async (id: string, body: Client) => {
+export const updateClient = async (id: string, body: ClientInterface) => {
   const query = { _id: new ObjectId(id) };
   const date = new Date();
 
