@@ -2,6 +2,7 @@ import express from 'express';
 import clientsRouter from './routes/client';
 import itemsRouter from './routes/item';
 import saleRouter from './routes/sale';
+import expenseRouter from './routes/expense';
 import { connectToDatabase } from './mongo/database';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -20,6 +21,7 @@ connectToDatabase()
     app.use('/api/clients', clientsRouter);
     app.use('/api/items', itemsRouter);
     app.use('/api/sales', saleRouter);
+    app.use('/api/expenses', expenseRouter);
     app.listen(PORT, () => {
       console.log(`🤖 Server is running on port: http://localhost:${PORT}`);
     });

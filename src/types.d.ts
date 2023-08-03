@@ -50,3 +50,12 @@ export interface SaleWithClientAndItemData {
   created_at: string;
   updated_at?: string;
 }
+
+export interface ExpenseInterface {
+  _id: string;
+  name: string;
+  type: string;
+  description?: string;
+  created_at: string;
+  updated_at?: string;
+}

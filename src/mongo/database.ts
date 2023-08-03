@@ -13,7 +13,7 @@ export async function connectToDatabase() {
   let db: mongoDB.Db;
 
   if (process.env.NODE_ENV !== 'production') {
-    console.log('🚀 Connecting to local database');
+    console.log('🚀 Connecting to DEVELOP database');
     db = client.db(process.env.DB_NAME_LOCAL);
   } else {
     console.log('🚀 Connecting to PRODUCTION database');
@@ -23,4 +23,5 @@ export async function connectToDatabase() {
   collections.clientCollection = db.collection('client_collection');
   collections.itemCollection = db.collection('item_collection');
   collections.saleCollection = db.collection('sale_collection');
+  collections.expenseCollection = db.collection('expense_collection');
 }
