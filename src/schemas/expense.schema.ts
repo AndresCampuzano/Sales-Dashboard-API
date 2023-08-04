@@ -4,7 +4,8 @@ export const ExpenseSchema = Joi.object({
   // id: Joi.string(),
   name: Joi.string().required(),
   type: Joi.string().required(),
-  description: Joi.string().optional()
+  price: Joi.number().required(),
+  description: Joi.optional()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
 });
