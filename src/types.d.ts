@@ -55,6 +55,7 @@ export interface ExpenseInterface {
   _id: string;
   name: string;
   type: string;
+  currency: string;
   price: number;
   description?: string;
   created_at: string;
