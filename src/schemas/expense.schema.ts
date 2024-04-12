@@ -9,4 +9,4 @@ export const ExpenseSchema = Joi.object({
   currency: Joi.string().optional()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
-});
+}).options({ convert: false });

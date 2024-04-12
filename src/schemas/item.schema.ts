@@ -9,4 +9,4 @@ export const ItemSchema = Joi.object({
   available_colors: Joi.array().items(Joi.string())
   // created_at: Joi.string(),
   // updated_at: Joi.string()
-});
+}).options({ convert: false });

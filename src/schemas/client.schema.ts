@@ -10,4 +10,4 @@ export const ClientSchema = Joi.object({
   phone: Joi.number().required()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
-});
+}).options({ convert: false });

@@ -33,13 +33,13 @@ router.get('/:id', async (req, res) => {
  * POST /api/items/ - Add a new item
  */
 router.post('/', async (req, res) => {
-  const { error } = isSchemaValid(ItemSchema, req.body);
+  const { error, value } = isSchemaValid(ItemSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ItemService.addItem(req.body);
+    const result = await ItemService.addItem(value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -54,13 +54,13 @@ router.put('/:id', async (req, res) => {
     res.status(400).send('Id is required');
     return;
   }
-  const { error } = isSchemaValid(ItemSchema, req.body);
+  const { error, value } = isSchemaValid(ItemSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ItemService.updateItem(req.params.id, req.body);
+    const result = await ItemService.updateItem(req.params.id, value);
     res.send(result).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);

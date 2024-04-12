@@ -34,12 +34,12 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   try {
-    const { error } = isSchemaValid(ClientSchema, req.body);
+    const { error, value } = isSchemaValid(ClientSchema, req.body);
     if (error) {
       res.status(400).send(error.message);
       return;
     }
-    const result = await ClientService.addClient(req.body);
+    const result = await ClientService.addClient(value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -54,13 +54,13 @@ router.put('/:id', async (req, res) => {
     res.status(400).send('Id is required');
     return;
   }
-  const { error } = isSchemaValid(ClientSchema, req.body);
+  const { error, value } = isSchemaValid(ClientSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ClientService.updateClient(req.params.id, req.body);
+    const result = await ClientService.updateClient(req.params.id, value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);

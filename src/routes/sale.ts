@@ -35,12 +35,12 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   try {
-    const { error } = isSchemaValid(SaleSchema, req.body);
+    const { error, value } = isSchemaValid(SaleSchema, req.body);
     if (error) {
       res.status(400).send(error.message);
       return;
     }
-    const result = await SaleService.addSale(req.body);
+    const result = await SaleService.addSale(value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -56,13 +56,13 @@ router.post('/', async (req, res) => {
 //     res.status(400).send('Id is required');
 //     return;
 //   }
-//   const { error } = isSchemaValid(SaleSchema, req.body);
+//   const { error, value } = isSchemaValid(SaleSchema, req.body);
 //   if (error) {
 //     res.status(400).send(error.message);
 //     return;
 //   }
 //   try {
-//     const result = await SaleService.updateSale(req.params.id, req.body);
+//     const result = await SaleService.updateSale(req.params.id, value);
 //     res.send(result).status(200);
 //   } catch (error: any) {
 //     res.status(500).send(error.message);

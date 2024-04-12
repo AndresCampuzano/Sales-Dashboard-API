@@ -34,12 +34,12 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   try {
-    const { error } = isSchemaValid(ExpenseSchema, req.body);
+    const { error, value } = isSchemaValid(ExpenseSchema, req.body);
     if (error) {
       res.status(400).send(error.message);
       return;
     }
-    const result = await ExpenseService.addExpense(req.body);
+    const result = await ExpenseService.addExpense(value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -54,13 +54,13 @@ router.put('/:id', async (req, res) => {
     res.status(400).send('Id is required');
     return;
   }
-  const { error } = isSchemaValid(ExpenseSchema, req.body);
+  const { error, value } = isSchemaValid(ExpenseSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ExpenseService.updateExpense(req.params.id, req.body);
+    const result = await ExpenseService.updateExpense(req.params.id, value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);

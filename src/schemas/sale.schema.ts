@@ -14,4 +14,4 @@ export const SaleSchema = Joi.object({
     .required()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
-});
+}).options({ convert: false });
