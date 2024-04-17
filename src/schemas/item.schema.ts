@@ -6,7 +6,7 @@ export const ItemSchema = Joi.object({
   price: Joi.number().required(),
   description: Joi.string(),
   image: Joi.string().required(),
-  available_colors: Joi.array().items(Joi.string())
+  available_colors: Joi.array().items(Joi.string()).required()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
 }).options({ convert: false });
