@@ -1,45 +1,45 @@
 import express from 'express';
-import * as ClientService from '../services/client.service';
+import * as CustomerService from '../services/customer.service';
 import { isSchemaValid } from '../utils/isSchemaValid';
-import { ClientSchema } from '../schemas/client.schema';
+import { CustomerSchema } from '../schemas/customer.schema';
 
 const router = express.Router();
 
 /**
- * GET /api/clients - Returns all clients
+ * GET /api/customers - Returns all customers
  */
 router.get('/', async (_req, res) => {
   try {
-    const clients = await ClientService.getClients();
-    res.send(clients).status(200);
+    const result = await CustomerService.getCustomers();
+    res.send(result).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }
 });
 
 /**
- * GET /api/clients/:id - Returns a single client
+ * GET /api/customers/:id - Returns a single customers
  */
 router.get('/:id', async (req, res) => {
   try {
-    const client = await ClientService.getClient(req.params.id);
-    res.send(client).status(200);
+    const customer = await CustomerService.getCustomer(req.params.id);
+    res.send(customer).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }
 });
 
 /**
- * POST /api/clients/ - Add a new client
+ * POST /api/customers/ - Add a new customers
  */
 router.post('/', async (req, res) => {
   try {
-    const { error, value } = isSchemaValid(ClientSchema, req.body);
+    const { error, value } = isSchemaValid(CustomerSchema, req.body);
     if (error) {
       res.status(400).send(error.message);
       return;
     }
-    const result = await ClientService.addClient(value);
+    const result = await CustomerService.addCustomer(value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -47,20 +47,20 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * PUT /api/clients/:id - Update a client
+ * PUT /api/customers/:id - Update a customers
  */
 router.put('/:id', async (req, res) => {
   if (!req.params.id) {
     res.status(400).send('Id is required');
     return;
   }
-  const { error, value } = isSchemaValid(ClientSchema, req.body);
+  const { error, value } = isSchemaValid(CustomerSchema, req.body);
   if (error) {
     res.status(400).send(error.message);
     return;
   }
   try {
-    const result = await ClientService.updateClient(req.params.id, value);
+    const result = await CustomerService.updateCustomer(req.params.id, value);
     res.send(result).status(201);
   } catch (error: any) {
     res.status(500).send(error.message);
@@ -68,7 +68,7 @@ router.put('/:id', async (req, res) => {
 });
 
 /**
- * DELETE /api/clients/:id - Delete a client
+ * DELETE /api/customers/:id - Delete a customers
  */
 router.delete('/:id', async (req, res) => {
   if (!req.params.id) {
@@ -76,8 +76,8 @@ router.delete('/:id', async (req, res) => {
     return;
   }
   try {
-    await ClientService.deleteClient(req.params.id);
-    res.send('Client deleted').status(200);
+    await CustomerService.deleteCustomer(req.params.id);
+    res.send('Customer deleted').status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }

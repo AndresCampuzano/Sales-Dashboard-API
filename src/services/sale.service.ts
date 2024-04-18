@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { SaleInterface } from '../types';
 import { collections } from '../mongo/collections';
-import { getClient } from './client.service';
+import { getCustomer } from './customer.service';
 
 /**
  * Return all sales
@@ -72,7 +72,7 @@ export const addSale = async (body: SaleInterface) => {
 
   try {
     // Validate that client exists
-    await getClient(body.client_id as string);
+    await getCustomer(body.client_id as string);
 
     // Validate that items exist
     const itemsIds = body.items.map((item) => item.item_id);

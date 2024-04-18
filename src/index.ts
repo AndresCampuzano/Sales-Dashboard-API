@@ -1,5 +1,5 @@
 import express from 'express';
-import clientsRouter from './routes/client';
+import customerRouter from './routes/customer';
 import itemsRouter from './routes/item';
 import saleRouter from './routes/sale';
 import expenseRouter from './routes/expense';
@@ -18,7 +18,8 @@ app.use(express.urlencoded({ limit: '10mb' }));
 connectToDatabase()
   .then(() => {
     const PORT = process.env.PORT || 3000;
-    app.use('/api/clients', clientsRouter);
+    app.use('/api/clients', customerRouter); // TODO: delete endpoint once 'customers' endpoint is fully integrated on new dashboard (Vue)
+    app.use('/api/customers', customerRouter);
     app.use('/api/items', itemsRouter);
     app.use('/api/sales', saleRouter);
     app.use('/api/expenses', expenseRouter);

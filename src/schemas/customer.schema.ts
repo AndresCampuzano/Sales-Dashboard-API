@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const ClientSchema = Joi.object({
+export const CustomerSchema = Joi.object({
   // id: Joi.string(),
   name: Joi.string().required(),
   instagram_account: Joi.string().required(),

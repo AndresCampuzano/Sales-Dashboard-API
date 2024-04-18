@@ -20,7 +20,7 @@ export async function connectToDatabase() {
     db = client.db(process.env.DB_NAME_PROD);
   }
 
-  collections.clientCollection = db.collection('client_collection');
+  collections.customerCollection = db.collection('client_collection');
   collections.itemCollection = db.collection('item_collection');
   collections.saleCollection = db.collection('sale_collection');
   collections.expenseCollection = db.collection('expense_collection');
