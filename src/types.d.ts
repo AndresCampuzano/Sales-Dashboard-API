@@ -37,7 +37,7 @@ export interface SaleInterface {
   updated_at?: Date;
 }
 
-export interface SaleWithClientAndItemDataInterface {
+export interface SaleWithCustomerAndItemDataInterface {
   _id: string;
   client_id: string;
   client: CustomerInterface;

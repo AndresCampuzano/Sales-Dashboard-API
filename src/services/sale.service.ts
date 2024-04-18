@@ -23,13 +23,13 @@ export const getSale = async (id: string) => {
 };
 
 /**
- * Return all sales with client and items data
+ * Return all sales with customer and items data
  * while keeping the color inside the item object
  */
-export const getSalesWithClientAndItemData = async () => {
+export const getSalesWithCustomerAndItemData = async () => {
   return collections.saleCollection
     ?.aggregate([
-      // on client_collection lookup for the client
+      // on client_collection lookup for the customer
       {
         $lookup: {
           from: 'client_collection',
@@ -38,7 +38,7 @@ export const getSalesWithClientAndItemData = async () => {
           as: 'client'
         }
       },
-      // unwind the client array: [{...}] -> {...}
+      // unwind the customer/client array: [{...}] -> {...}
       {
         $unwind: '$client'
       },
@@ -51,7 +51,7 @@ export const getSalesWithClientAndItemData = async () => {
           as: 'original_items'
         }
       },
-      // on this collection (sales) lookup for all sales with the same client
+      // on this collection (sales) lookup for all sales with the same customer
       {
         $lookup: {
           from: 'sale_collection',
@@ -71,7 +71,7 @@ export const addSale = async (body: SaleInterface) => {
   const date = new Date();
 
   try {
-    // Validate that client exists
+    // Validate that customer exists
     await getCustomer(body.client_id as string);
 
     // Validate that items exist
@@ -89,7 +89,7 @@ export const addSale = async (body: SaleInterface) => {
       throw new Error('One or more items do not exist');
     }
 
-    // Convert client id and items id to ObjectId
+    // Convert customer id and items id to ObjectId
     body.client_id = new ObjectId(body.client_id);
     body.items = body.items.map((item) => ({
       ...item,

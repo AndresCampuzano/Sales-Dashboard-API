@@ -2,17 +2,17 @@ import express from 'express';
 import * as SaleService from '../services/sale.service';
 import { isSchemaValid } from '../utils/isSchemaValid';
 import { SaleSchema } from '../schemas/sale.schema';
-import { SaleWithClientAndItemDataInterface } from '../types';
+import { SaleWithCustomerAndItemDataInterface } from '../types';
 
 const router = express.Router();
 
 /**
- * GET /api/sales - Returns all sales with client and item data
+ * GET /api/sales - Returns all sales with customer and item data
  */
 router.get('/', async (_req, res) => {
   try {
-    const sales = await SaleService.getSalesWithClientAndItemData();
-    res.send(sales as SaleWithClientAndItemDataInterface[]).status(200);
+    const sales = await SaleService.getSalesWithCustomerAndItemData();
+    res.send(sales as SaleWithCustomerAndItemDataInterface[]).status(200);
   } catch (error: any) {
     res.status(500).send(error.message);
   }
