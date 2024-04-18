@@ -4,6 +4,7 @@ export const SaleSchema = Joi.object({
   // id: Joi.string(),
   client_id: Joi.string().required(),
   items: Joi.array()
+    .min(1).required()
     .items(
       Joi.object({
         item_id: Joi.string().required(),
@@ -11,7 +12,6 @@ export const SaleSchema = Joi.object({
         price: Joi.number().required().positive()
       })
     )
-    .required()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
 }).options({ convert: false });
