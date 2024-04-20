@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { SaleInterface } from '../types';
+import { CustomerInterface, SaleInterface } from '../types';
 import { collections } from '../mongo/collections';
 import { getCustomer } from './customer.service';
 
@@ -72,7 +72,7 @@ export const addSale = async (body: SaleInterface) => {
 
   try {
     // Validate that customer exists
-    await getCustomer(body.client_id as string);
+    const customerSnapshot = await getCustomer(body.client_id as string);
 
     // Validate that items exist
     const itemsIds = body.items.map((item) => item.item_id);
@@ -91,6 +91,8 @@ export const addSale = async (body: SaleInterface) => {
 
     // Convert customer id and items id to ObjectId
     body.client_id = new ObjectId(body.client_id);
+    // Saves the customer's info when the sale is created
+    body.client_snapshot = customerSnapshot as unknown as CustomerInterface
     body.items = body.items.map((item) => ({
       ...item,
       item_id: new ObjectId(item.item_id)

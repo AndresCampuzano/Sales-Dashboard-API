@@ -27,6 +27,7 @@ export interface SaleInterface {
   _id: string;
   client_id: ObjectId | string;
   client: CustomerInterface;
+  client_snapshot: CustomerInterface;
   items: {
     item_id: ObjectId | string;
     color: string;
