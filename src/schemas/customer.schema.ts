@@ -7,7 +7,8 @@ export const CustomerSchema = Joi.object({
   address: Joi.string().required(),
   department: Joi.string().required(),
   city: Joi.string().required(),
-  phone: Joi.number().required().positive()
+  phone: Joi.number().required().positive(),
+  comments: Joi.optional()
   // created_at: Joi.string(),
   // updated_at: Joi.string()
 }).options({ convert: false });
