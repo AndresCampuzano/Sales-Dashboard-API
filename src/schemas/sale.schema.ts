@@ -3,7 +3,6 @@ import Joi from 'joi';
 export const SaleSchema = Joi.object({
   // id: Joi.string(),
   client_id: Joi.string().required(),
-  // README: client_snapshot is saved in the BE
   items: Joi.array()
     .min(1).required()
     .items(
