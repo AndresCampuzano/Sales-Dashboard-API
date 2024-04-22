@@ -24,4 +24,5 @@ export async function connectToDatabase() {
   collections.itemCollection = db.collection('item_collection');
   collections.saleCollection = db.collection('sale_collection');
   collections.expenseCollection = db.collection('expense_collection');
+  collections.userCollection = db.collection('user_collection');
 }

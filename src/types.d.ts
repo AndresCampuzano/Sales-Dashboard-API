@@ -8,6 +8,7 @@ export interface CustomerInterface {
   department: string;
   city: string;
   phone: number;
+  has_snapshots_on_sales?: boolean
   created_at?: string;
   updated_at?: string;
 }

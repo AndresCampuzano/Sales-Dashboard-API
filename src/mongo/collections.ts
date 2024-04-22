@@ -8,4 +8,5 @@ export const collections: {
   itemCollection?: mongoDB.Collection;
   saleCollection?: mongoDB.Collection;
   expenseCollection?: mongoDB.Collection;
+  userCollection?: mongoDB.Collection;
 } = {};

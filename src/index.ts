@@ -6,6 +6,7 @@ import expenseRouter from './routes/expense';
 import { connectToDatabase } from './mongo/database';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import sgMail from '@sendgrid/mail'
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ limit: '10mb' }));
 connectToDatabase()
   .then(() => {
     const PORT = process.env.PORT || 3000;
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY || '')
     app.use('/api/clients', customerRouter); // TODO: delete endpoint once 'customers' endpoint is fully integrated on new dashboard (Vue)
     app.use('/api/customers', customerRouter);
     app.use('/api/items', itemsRouter);
