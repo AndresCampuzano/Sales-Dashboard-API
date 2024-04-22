@@ -176,7 +176,7 @@ export const addSale = async (body: SaleInterface) => {
               <tr style="height: 6px;">
                 <td colspan="2"></td>
               </tr>`
-              })}
+              }).join('')}
                       
               <tr>
                 <td style="width: 60%;">
