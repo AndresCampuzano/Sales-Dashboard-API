@@ -27,7 +27,7 @@
 
 ## 📍 Overview
 
-SALES-DASHBOARD-API is a backend application developed to provide a sales dashboard REST API a shop. It allows you to manage and retrieve sales data through a simple and intuitive API.
+SALES-DASHBOARD-API is a backend application developed to provide a sales dashboard REST API for a shop. It allows you to manage and retrieve sales data through a simple and intuitive API.
 
 ---
 
