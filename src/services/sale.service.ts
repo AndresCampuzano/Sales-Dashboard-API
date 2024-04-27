@@ -193,7 +193,7 @@ export const addSale = async (body: SaleInterface) => {
                   <a href="https://www.instagram.com/${customer?.instagram_account}" style="color: #4f46e5; text-decoration: none; margin: 0 0 4px; display: block">@${customer?.instagram_account}</a>
                   <p style="margin: 0 0 4px;"><a href="tel:${customer?.phone}" style="color: #4f46e5; text-decoration: none;">${customer?.phone}</a></p>
                    <p style="margin: 0 0 4px;">${customer?.comments || ''}</p>
-                   <p style="margin: 0 0 4px;">${customer?.cc || ''}</p>
+                   <p style="margin: 0 0 4px;">${customer?.cc ? `cc ${customer.cc}` : ''}</p>
                 </td>
               </tr>
             </table>
