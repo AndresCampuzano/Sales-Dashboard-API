@@ -49,16 +49,12 @@ export const updateItem = async (id: string, body: ItemInterface) => {
 
   try {
     const item = await getItem(id);
-    // Check if the image has changed
+    // Check if the image has changed, if it changed, it will always be a new base64 file
     if (item.image !== body.image) {
-      // Check if item.image is not base64
-      if (!item.image.includes('data:image')) {
-        // Getting the image id from the url
-        const imageId = item.image.split('/').pop();
-        // Delete the old image
-        await deleteImage(imageId);
-      }
-      // Upload the new image
+      // delete the old aws image
+      const oldImageId = item.image.split('/').pop();
+      await deleteImage(oldImageId);
+      // Upload the new base 64 image
       const imageUrl = await uploadImage(body.image);
 
       return await collections.itemCollection?.updateOne(query, {
