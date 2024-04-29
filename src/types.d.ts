@@ -20,7 +20,6 @@ export interface ItemInterface {
   name: string;
   price: number;
   image: string;
-  category: string;
   available_colors: string[];
   created_at?: string;
   updated_at?: string;
