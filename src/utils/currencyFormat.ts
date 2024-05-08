@@ -1,6 +1,6 @@
 /**
  * Formats a number to any currency
- * @example 45000 -> $45.000
+ * @example 45000 -> COP 45,000
  */
 export const currencyFormat = (
   value: number,
@@ -15,6 +15,6 @@ export const currencyFormat = (
     style: 'currency',
     minimumFractionDigits: 0,
     // maximumFractionDigits: 0,
-    currency: currency || 'COP' // handles AUD and Korean won
+    currency: currency || 'COP'
   }).format(value)
 }
